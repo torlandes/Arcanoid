@@ -8,6 +8,7 @@ namespace Arcanoid.Game
 
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private Vector2 _startDirection;
+        [SerializeField] private float _speed = 10f;
 
         private bool _isStarted;
         private Platform _platform;
@@ -36,6 +37,20 @@ namespace Arcanoid.Game
             }
         }
 
+        private void OnDrawGizmos()
+        {
+            if (!_isStarted)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawLine(transform.position, transform.position + (Vector3)_startDirection);
+            }
+            else
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(transform.position, transform.position + (Vector3)_rb.velocity);
+            }
+        }
+
         #endregion
 
         #region Private methods
@@ -50,7 +65,8 @@ namespace Arcanoid.Game
         private void StartFlying()
         {
             _isStarted = true;
-            _rb.velocity = _startDirection;
+            Vector2 normalized = _startDirection.normalized;
+            _rb.velocity = normalized * _speed;
         }
 
         #endregion
