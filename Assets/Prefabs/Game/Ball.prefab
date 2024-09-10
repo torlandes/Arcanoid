@@ -48,7 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 2326033346399940778}
-  _startDirection: {x: 0, y: 15}
+  _startDirection: {x: 9.8, y: 15}
+  _speed: 10
 --- !u!58 &512276803453562102
 CircleCollider2D:
   m_ObjectHideFlags: 0
