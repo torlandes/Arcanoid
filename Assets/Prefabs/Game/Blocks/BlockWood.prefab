@@ -175,6 +175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 301c26fdebd2411c8fb0057bf64c535f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color: {r: 1, g: 0, b: 0, a: 0}
-  _spriteRenderer: {fileID: 6322937193220838007}
-  _scoreValue: 5
+  _score: 1
+  _pickUpPrefab: {fileID: 0}
+  _pickUpSpawnProbability: 37
