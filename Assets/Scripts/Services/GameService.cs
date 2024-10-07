@@ -1,6 +1,5 @@
 ﻿using System;
 using Arcanoid.Utility;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Arcanoid.Services
@@ -9,19 +8,39 @@ namespace Arcanoid.Services
     {
         #region Variables
 
+        [Header("Auto Play")]
+        [SerializeField] private bool _isAutoPlay;
+
+        [Header("Settings")]
+        [SerializeField] private int _maxLives = 3;
+
+        [Header("Stats")]
         [SerializeField] private int _score;
+        [SerializeField] private int _lives;
+
+        #endregion
+
+        #region Events
+
+        public event Action<int> OnScoreChanged;
 
         #endregion
 
         #region Properties
 
-        public event Action<int> OnScoreChanged;
-
+        public bool IsAutoPlay => _isAutoPlay;
         public int Score => _score;
 
         #endregion
 
         #region Unity lifecycle
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            _lives = _maxLives;
+        }
 
         private void Start()
         {
@@ -43,14 +62,35 @@ namespace Arcanoid.Services
             OnScoreChanged?.Invoke(_score);
         }
 
+        public void RemoveLife()
+        {
+            if (_lives > 0)
+            {
+                _lives--;
+
+                LevelService.Instance.Ball.ResetBall();
+                return;
+            }
+
+            Debug.LogError($"GAME OVER");
+            //TODO: GameOver
+        }
+
         #endregion
 
         #region Private methods
 
         private void AllBlocksDestroyedCallback()
         {
-            Debug.LogError("WIN!");
-            SceneLoaderService.LoadNextLevelTest();
+            if (SceneLoaderService.Instance.HasNextLevel())
+            {
+                SceneLoaderService.Instance.LoadNextLevel();
+            }
+            else
+            {
+                Debug.LogError($"GAME WIN!");
+            }
+            // SceneLoaderService.LoadNextLevelTest();
         }
 
         #endregion
