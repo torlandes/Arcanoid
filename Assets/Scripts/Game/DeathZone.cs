@@ -1,15 +1,17 @@
-using System;
 using Arcanoid.Services;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Arcanoid.Game
 {
     public class DeathZone : MonoBehaviour
     {
+        #region Variables
+
         [SerializeField] private bool _isActive = true;
-        
-        #region Private methods
+
+        #endregion
+
+        #region Unity lifecycle
 
         private void OnCollisionEnter2D(Collision2D other)
         {
@@ -17,8 +19,22 @@ namespace Arcanoid.Game
             {
                 return;
             }
+
+            if (other.gameObject.CompareTag(Tag.Ball))
+            {
+                GameService.Instance.RemoveLife();
+            }
+
+            else
+            {
+                Destroy(other.gameObject);
+            }
             
-            SceneLoaderService.Instance.ReloadCurrentScene();
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            Destroy(other.gameObject);
         }
 
         #endregion

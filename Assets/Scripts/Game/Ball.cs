@@ -1,3 +1,5 @@
+using System;
+using Arcanoid.Services;
 using UnityEngine;
 
 namespace Arcanoid.Game
@@ -9,17 +11,37 @@ namespace Arcanoid.Game
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private Vector2 _startDirection;
         [SerializeField] private float _speed = 10f;
+        [SerializeField] private float _yOffsetFromPlatform = 1;
 
         private bool _isStarted;
         private Platform _platform;
 
         #endregion
 
+        #region Events
+
+        public static event Action<Ball> OnCreated;
+        public static event Action<Ball> OnDestroyed;
+
+        #endregion
+
         #region Unity lifecycle
+
+        // private void Awake()
+        // {
+        //     OnCreated?.Invoke(this);
+        // }
 
         private void Start()
         {
             _platform = FindObjectOfType<Platform>();
+
+            OnCreated?.Invoke(this);
+
+            if (GameService.Instance.IsAutoPlay)
+            {
+                StartFlying();
+            }
         }
 
         private void Update()
@@ -35,6 +57,11 @@ namespace Arcanoid.Game
             {
                 StartFlying();
             }
+        }
+
+        private void OnDestroy()
+        {
+            OnDestroyed?.Invoke(this);
         }
 
         private void OnDrawGizmos()
@@ -53,12 +80,23 @@ namespace Arcanoid.Game
 
         #endregion
 
+        #region Public methods
+
+        public void ResetBall()
+        {
+            _isStarted = false;
+            _rb.velocity = Vector2.zero;
+        }
+
+        #endregion
+
         #region Private methods
 
         private void MoveWithPlatform()
         {
             Vector3 currentPosition = transform.position;
             currentPosition.x = _platform.transform.position.x;
+            currentPosition.y = _platform.transform.position.y + _yOffsetFromPlatform;
             transform.position = currentPosition;
         }
 
