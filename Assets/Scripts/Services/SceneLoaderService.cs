@@ -43,7 +43,7 @@ namespace Arcanoid.Services
             return _levelSceneNames.Length > _currentSceneIndex + 1;
         }
 
-        public void LoadFirstLeve()
+        public void LoadFirstLevel()
         {
             _currentSceneIndex = 0;
             LoadCurrentScene();
