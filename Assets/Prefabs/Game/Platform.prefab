@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7532298642432276026}
   - component: {fileID: 1059554331479775607}
   - component: {fileID: 6038997336584084657}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Platform
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 470688292575778486}
   - component: {fileID: 1500594967643303130}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: elementStone016
   m_TagString: Untagged
   m_Icon: {fileID: 0}

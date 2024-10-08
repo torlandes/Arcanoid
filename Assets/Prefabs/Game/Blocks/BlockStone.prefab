@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1680266579881754443}
   - component: {fileID: 5448481881558144487}
   - component: {fileID: 8082392251838099463}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BlockStone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,9 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 301c26fdebd2411c8fb0057bf64c535f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color: {r: 1, g: 0, b: 0, a: 0}
-  _spriteRenderer: {fileID: 3994129284158097716}
-  _scoreValue: 7
+  _score: 1
 --- !u!1 &7977725385451811108
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4618138749066707316}
   - component: {fileID: 3994129284158097716}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: elementStone001
   m_TagString: Untagged
   m_Icon: {fileID: 0}

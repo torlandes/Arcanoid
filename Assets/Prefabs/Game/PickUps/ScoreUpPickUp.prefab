@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6135821551183654509}
   - component: {fileID: 8222586478809046155}
   - component: {fileID: 3837074736006279863}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ScoreUpPickUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3316627602121995969}
   - component: {fileID: 4578667894072688524}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: coinGold
   m_TagString: Untagged
   m_Icon: {fileID: 0}

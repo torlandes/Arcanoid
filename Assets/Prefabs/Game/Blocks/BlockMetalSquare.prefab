@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5897570551926604733}
   - component: {fileID: 3746916030837451156}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: elementMetal011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5947004082023611112}
   - component: {fileID: 3208743352254839203}
   - component: {fileID: 1482973343843646438}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BlockMetalSquare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,6 +175,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 301c26fdebd2411c8fb0057bf64c535f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color: {r: 1, g: 0, b: 0, a: 0}
-  _spriteRenderer: {fileID: 3746916030837451156}
-  _scoreValue: 10
+  _score: 1

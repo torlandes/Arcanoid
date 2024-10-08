@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8639199723982702644}
   - component: {fileID: 7160590124533389168}
   - component: {fileID: 2472846936928316753}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BlockGlass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,9 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 301c26fdebd2411c8fb0057bf64c535f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color: {r: 1, g: 0, b: 0, a: 0}
-  _spriteRenderer: {fileID: 2859551416773919719}
-  _scoreValue: 3
+  _score: 1
 --- !u!61 &2472846936928316753
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -104,7 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1668116768153449047}
   - component: {fileID: 2859551416773919719}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: elementGlass019
   m_TagString: Untagged
   m_Icon: {fileID: 0}

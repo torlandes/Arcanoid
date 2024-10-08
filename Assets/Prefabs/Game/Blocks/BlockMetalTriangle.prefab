@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2884943205181301660}
   - component: {fileID: 1951952327377104040}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: elementMetal057
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3623364195669427920}
   - component: {fileID: 1936138227283415465}
   - component: {fileID: 6719571339098743737}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BlockMetalTriangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,6 +173,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 301c26fdebd2411c8fb0057bf64c535f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color: {r: 1, g: 0, b: 0, a: 0}
-  _spriteRenderer: {fileID: 1951952327377104040}
-  _scoreValue: 10
+  _score: 1

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6366815359988800690}
   - component: {fileID: 6322937193220838007}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: elementWood010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2840641131658990553}
   - component: {fileID: 8896568914561510572}
   - component: {fileID: 5209456544974691563}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BlockWood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,5 +176,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _score: 1
-  _pickUpPrefab: {fileID: 0}
-  _pickUpSpawnProbability: 37
