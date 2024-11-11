@@ -15,6 +15,8 @@ namespace Arcanoid.Game
         [SerializeField] private float _explosiveRadius = 1f;
         [SerializeField] private LayerMask _explosiveLayerMask;
         [SerializeField] private GameObject _explosionVfxPrefab;
+        [SerializeField] private AudioClip _explosionAudioClip;
+        
         
 
         #endregion
@@ -79,6 +81,8 @@ namespace Arcanoid.Game
             {
                 return;
             }
+            
+            AudioService.Instance.PlaySfx(_explosionAudioClip);
 
             if (_explosionVfxPrefab != null)
             {
@@ -104,3 +108,4 @@ namespace Arcanoid.Game
         // private UnityAction<int> _onBlockDestroyed;
     }
 }
+
