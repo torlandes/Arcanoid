@@ -22,7 +22,8 @@ namespace Arcanoid.Game
 
             if (other.gameObject.CompareTag(Tag.Ball))
             {
-                GameService.Instance.RemoveLife();
+                GameService.Instance.RemoveLife(-1);
+                GameService.Instance.ResetBall();
             }
 
             else

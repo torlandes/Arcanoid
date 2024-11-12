@@ -1,4 +1,5 @@
 ﻿using System;
+using Arcanoid.UI;
 using Arcanoid.Utility;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ namespace Arcanoid.Services
 
         #region Events
 
+        public event Action<int> OnLiveChanged;
         public event Action<int> OnScoreChanged;
 
         #endregion
@@ -30,6 +32,7 @@ namespace Arcanoid.Services
 
         public bool IsAutoPlay => _isAutoPlay;
         public int Score => _score;
+        public int Lives => _lives;
 
         #endregion
 
@@ -62,18 +65,26 @@ namespace Arcanoid.Services
             OnScoreChanged?.Invoke(_score);
         }
 
-        public void RemoveLife()
+        public void CheckGameEnd()
         {
-            if (_lives > 0)
+            if (_lives <= 0)
             {
-                _lives--;
-
-                LevelService.Instance.Ball.ResetBall();
-                return;
+                Debug.LogError("GAME OVER!");
+                GameOverScreen.Instance.ShowGameOver();
             }
+        }
 
-            Debug.LogError($"GAME OVER");
-            //TODO: GameOver
+        public void RemoveLife(int value)
+        {
+            _lives += value;
+            _lives = Mathf.Clamp(_lives, 0, _maxLives);
+            OnLiveChanged?.Invoke(_lives);
+            CheckGameEnd();
+        }
+
+        public void ResetBall()
+        {
+            LevelService.Instance.Ball.ResetBall();
         }
 
         #endregion
@@ -88,7 +99,7 @@ namespace Arcanoid.Services
             }
             else
             {
-                Debug.LogError($"GAME WIN!");
+                Debug.LogError("GAME WIN!");
             }
             // SceneLoaderService.LoadNextLevelTest();
         }

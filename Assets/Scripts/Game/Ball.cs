@@ -1,6 +1,8 @@
 using System;
 using Arcanoid.Services;
+using Arcanoid.Utility;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Arcanoid.Game
 {
@@ -15,6 +17,11 @@ namespace Arcanoid.Game
 
         [Header("Audio")]
         [SerializeField] private AudioClip _hitAudioClip;
+
+        [Header("Direction")]
+        [SerializeField] private float _directionMin = -90;
+        [SerializeField] private float _directionMax = 90;
+        [SerializeField] private int _segments = 10;
 
         private bool _isStarted;
         private Platform _platform;
@@ -72,7 +79,8 @@ namespace Arcanoid.Game
             if (!_isStarted)
             {
                 Gizmos.color = Color.green;
-                Gizmos.DrawLine(transform.position, transform.position + (Vector3)_startDirection);
+                GizmosUtility.DrawArc2D(transform.position, Vector2.up, _directionMin, _directionMax, _speed,
+                    _segments);
             }
             else
             {
@@ -106,8 +114,21 @@ namespace Arcanoid.Game
         private void StartFlying()
         {
             _isStarted = true;
-            Vector2 normalized = _startDirection.normalized;
-            _rb.velocity = normalized * _speed;
+            Vector2 randomDirection = GetRandomStartDirection();
+            _rb.velocity = randomDirection * _speed;
+        }
+
+        
+        public Vector2 GetRandomStartDirection()
+        {
+            float minAngleDeg = -75f;
+            float maxAngleDeg = 75f;
+            float minAngleRad = minAngleDeg * Mathf.Deg2Rad;
+            float maxAngleRad = maxAngleDeg * Mathf.Deg2Rad;
+            float randomAngle = Random.Range(minAngleRad, maxAngleRad);
+            Vector2 direction = new Vector2(Mathf.Sin(randomAngle), Mathf.Cos(randomAngle)).normalized;
+
+            return direction;
         }
 
         #endregion

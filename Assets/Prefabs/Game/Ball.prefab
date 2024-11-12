@@ -53,6 +53,9 @@ MonoBehaviour:
   _speed: 10
   _yOffsetFromPlatform: 1
   _hitAudioClip: {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2, type: 3}
+  _directionMin: -90
+  _directionMax: 90
+  _segments: 10
 --- !u!58 &512276803453562102
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -103,7 +106,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
-  m_GravityScale: 0.05
+  m_GravityScale: 0.01
   m_Material: {fileID: 6200000, guid: dcec76e945a9ee544922d88017f1874b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
