@@ -109,6 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9df3f02f5a6418eac282f7b6beaf904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scoreVfxPrefab: {fileID: 5292275554398723852, guid: 994f4b756074d544ebbd95b35fd8bf56, type: 3}
+  _scoreAudioClip: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
   _score: 5
 --- !u!1 &7061708799030297992
 GameObject:
