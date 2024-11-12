@@ -1,3 +1,4 @@
+using Arcanoid.Services;
 using UnityEngine;
 
 namespace Arcanoid.Game.PickUps
@@ -5,6 +6,13 @@ namespace Arcanoid.Game.PickUps
     [RequireComponent(typeof(Rigidbody2D))]
     public abstract class PickUp : MonoBehaviour
     {
+        #region Variables
+
+        [SerializeField] private GameObject _scoreVfxPrefab;
+        [SerializeField] private AudioClip _scoreAudioClip;
+
+        #endregion
+
         #region Unity lifecycle
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -18,12 +26,16 @@ namespace Arcanoid.Game.PickUps
 
         #endregion
 
-        #region Protected methods
+        #region Private methods
 
         protected virtual void PerformActions()
         {
-            //TODO: Play vfx
-            //TODO: Play sound
+            AudioService.Instance.PlaySfx(_scoreAudioClip);
+            if (_scoreVfxPrefab != null)
+            {
+                Instantiate(_scoreVfxPrefab, transform.position, Quaternion.identity);
+            }
+            
         }
 
         #endregion

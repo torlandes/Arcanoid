@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Arcanoid.Services;
 using UnityEngine;
 
@@ -7,8 +8,14 @@ namespace Arcanoid.Game
     public class Block : MonoBehaviour
     {
         #region Variables
-
+        
+        [Header("Block Settings")]
         [SerializeField] private int _score = 1;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private Sprite _spriteLowCrackedBlock;
+        [SerializeField] private Sprite _spriteHardCrackedBlock;
+        [SerializeField] private int _life;
+        [SerializeField] private bool _isInvisible;
 
         [Header("Explosive")]
         [SerializeField] private bool _isExplosive;
@@ -16,8 +23,6 @@ namespace Arcanoid.Game
         [SerializeField] private LayerMask _explosiveLayerMask;
         [SerializeField] private GameObject _explosionVfxPrefab;
         [SerializeField] private AudioClip _explosionAudioClip;
-        
-        
 
         #endregion
 
@@ -32,6 +37,8 @@ namespace Arcanoid.Game
 
         private void Start()
         {
+            GetComponent<ParticleSystem>().Stop();
+            _spriteRenderer.enabled = !_isInvisible;
             OnCreated?.Invoke(this);
         }
 
@@ -42,7 +49,23 @@ namespace Arcanoid.Game
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            DestroyBlock();
+            OnCollisionImpact();
+            
+            if (_life > 0)
+            {
+                _life --;
+                UpdateBlockSprite();
+            }
+            if (_life <= 0)
+            {
+                DestroyBlock();
+            }
+            if (!_isInvisible)
+            {
+                return;
+            }
+            
+            _spriteRenderer.enabled = true;
         }
 
         private void OnDrawGizmos()
@@ -81,8 +104,8 @@ namespace Arcanoid.Game
             {
                 return;
             }
-            
-            AudioService.Instance.PlaySfx(_explosionAudioClip);
+
+            OnCollisionImpact();
 
             if (_explosionVfxPrefab != null)
             {
@@ -100,12 +123,25 @@ namespace Arcanoid.Game
                 }
             }
         }
+        
+        private void UpdateBlockSprite()
+        {
+            if (_life == 2)
+            {
+                _spriteRenderer.sprite = _spriteLowCrackedBlock;
+            }
+        
+            if (_life == 1)
+            {
+                _spriteRenderer.sprite = _spriteHardCrackedBlock;
+            }
+        }
 
+        private void OnCollisionImpact()
+        {
+            AudioService.Instance.PlaySfx(_explosionAudioClip);
+            GetComponent<ParticleSystem>().Play();
+        }
         #endregion
-
-        // private bool _isHit;
-        // private int _maxLives;
-        // private UnityAction<int> _onBlockDestroyed;
     }
 }
-

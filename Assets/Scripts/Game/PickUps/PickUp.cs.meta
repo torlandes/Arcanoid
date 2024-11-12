@@ -3,7 +3,9 @@ guid: ce0cc7b77e76a2947a3eb3972b3a9d33
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _scoreVfxPrefab: {instanceID: 0}
+  - _scoreAudioClip: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

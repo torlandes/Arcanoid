@@ -12,10 +12,9 @@ namespace Arcanoid.Game
         [SerializeField] private Vector2 _startDirection;
         [SerializeField] private float _speed = 10f;
         [SerializeField] private float _yOffsetFromPlatform = 1;
-        
+
         [Header("Audio")]
         [SerializeField] private AudioClip _hitAudioClip;
-        
 
         private bool _isStarted;
         private Platform _platform;
@@ -30,11 +29,6 @@ namespace Arcanoid.Game
         #endregion
 
         #region Unity lifecycle
-
-        // private void Awake()
-        // {
-        //     OnCreated?.Invoke(this);
-        // }
 
         private void Start()
         {
@@ -68,6 +62,11 @@ namespace Arcanoid.Game
             OnDestroyed?.Invoke(this);
         }
 
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            AudioService.Instance.PlaySfx(_hitAudioClip);
+        }
+
         private void OnDrawGizmos()
         {
             if (!_isStarted)
@@ -80,11 +79,6 @@ namespace Arcanoid.Game
                 Gizmos.color = Color.red;
                 Gizmos.DrawLine(transform.position, transform.position + (Vector3)_rb.velocity);
             }
-        }
-
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            AudioService.Instance.PlaySfx(_hitAudioClip);
         }
 
         #endregion
