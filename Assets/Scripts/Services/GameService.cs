@@ -101,7 +101,6 @@ namespace Arcanoid.Services
             {
                 Debug.LogError("GAME WIN!");
             }
-            // SceneLoaderService.LoadNextLevelTest();
         }
 
         #endregion

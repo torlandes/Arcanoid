@@ -40,5 +40,6 @@ namespace Arcanoid.Services
         }
 
         #endregion
+
     }
 }
