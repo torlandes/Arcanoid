@@ -37,7 +37,6 @@ namespace Arcanoid.Game
 
         private void Start()
         {
-            GetComponent<ParticleSystem>().Stop();
             _spriteRenderer.enabled = !_isInvisible;
             OnCreated?.Invoke(this);
         }
@@ -95,6 +94,7 @@ namespace Arcanoid.Game
             GameService.Instance.AddScore(_score);
             PickUpService.Instance.SpawnPickUp(transform.position);
             Destroy(gameObject);
+            OnCollisionImpact();
             Explode();
         }
 
@@ -140,7 +140,7 @@ namespace Arcanoid.Game
         private void OnCollisionImpact()
         {
             AudioService.Instance.PlaySfx(_explosionAudioClip);
-            GetComponent<ParticleSystem>().Play();
+            Instantiate(_explosionVfxPrefab, transform.position, Quaternion.identity);
         }
         #endregion
     }
