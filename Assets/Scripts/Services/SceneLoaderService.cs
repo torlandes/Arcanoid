@@ -11,7 +11,13 @@ namespace Arcanoid.Services
 
         [SerializeField] private string[] _levelSceneNames;
 
+        // [SerializeField] private string _startSceneName;
+        // [SerializeField] private string _winSceneName;
+        
+        [SerializeField] private float _newLevelDelay = 0.5f;
+
         private int _currentSceneIndex;
+        
         private bool _isLoadingNextScene;
 
         #endregion
@@ -21,7 +27,6 @@ namespace Arcanoid.Services
         protected override void Awake()
         {
             base.Awake();
-
             DetectCurrentSceneIndex();
         }
 
@@ -29,58 +34,62 @@ namespace Arcanoid.Services
 
         #region Public methods
         
-        public void ReloadCurrentScene()
-        {
-            if (_isLoadingNextScene)
-            {
-                return;
-            }
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-        public bool HasNextLevel()
-        {
-            return _levelSceneNames.Length > _currentSceneIndex + 1;
-        }
-
+        // public void LoadMenuScene()
+        // {
+        //     SceneManager.LoadScene(_startSceneName);
+        //     Debug.LogError("??????");
+        // }
+        
         public void LoadFirstLevel()
         {
             if (_isLoadingNextScene)
             {
                 return;
             }
-
             _currentSceneIndex = 0;
             LoadCurrentScene();
         }
-
-        public void LoadLevel(int index)
+        
+        public void LoadCurrentLevel()
         {
-            if (index >= 0 && index < _levelSceneNames.Length)
-            {
-                _currentSceneIndex = index;
-                LoadCurrentScene();
-            }
+            SceneManager.LoadScene(_currentSceneIndex);
+            PauseService.Instance.TogglePause();
         }
 
         public void LoadNextLevel()
         {
-            if (_isLoadingNextScene)
-            {
-                return;
-            }
             _currentSceneIndex++;
             LoadCurrentScene();
         }
 
-        public void LoadNextLevelWithDelay(float delay)
+        public void LoadNextLevelDelayed()
         {
-            if (_isLoadingNextScene)
-            {
-                return;
-            }
-
-            StartCoroutine(LoadNextLevelWithDelayInternal(delay));
+            StartCoroutine(LoadNextLevelDelayedInternal());
         }
+        
+        public bool HasNextLevel()
+        {
+            return _levelSceneNames.Length > _currentSceneIndex + 1;
+        }
+        
+        // public void LoadWinScene()
+        // {
+        //     SceneManager.LoadScene(_winSceneName);
+        // }        
+        
+        public void ExitGame()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            Application.Quit();
+        }
+
+        // public void LoadLevelWithName(string levelName)
+        // {
+        //     _currentSceneIndex = GetSceneIndex(levelName);
+        //     LoadCurrentScene();
+        // }
 
         #endregion
 
@@ -101,20 +110,30 @@ namespace Arcanoid.Services
             }
         }
 
+        // private int GetSceneIndex(string levelName)
+        // {
+        //     for (int i = 0; i < _levelSceneNames.Length; i++)
+        //     {
+        //         if (string.Equals(_levelSceneNames[i], levelName))
+        //         {
+        //             return i;
+        //         }
+        //     }
+        //
+        //     return -1;
+        // }
+
         private void LoadCurrentScene()
         {
             SceneManager.LoadScene(_levelSceneNames[_currentSceneIndex]);
         }
 
-        private IEnumerator LoadNextLevelWithDelayInternal(float delay)
+        private IEnumerator LoadNextLevelDelayedInternal()
         {
-            _isLoadingNextScene = true;
-            yield return new WaitForSeconds(delay);
-            _isLoadingNextScene = false;
-
+            yield return new WaitForSeconds(_newLevelDelay);
             LoadNextLevel();
         }
-        
+
         #endregion
     }
 }

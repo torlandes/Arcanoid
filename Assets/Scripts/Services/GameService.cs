@@ -19,10 +19,14 @@ namespace Arcanoid.Services
         [SerializeField] private int _score;
         [SerializeField] private int _lives;
 
+        [Header("Audio Remove Life")]
+        [SerializeField] private AudioClip _overAudioClip;
+
         #endregion
 
         #region Events
 
+        // public event Action OnGameOver;
         public event Action<int> OnLiveChanged;
         public event Action<int> OnScoreChanged;
 
@@ -31,8 +35,9 @@ namespace Arcanoid.Services
         #region Properties
 
         public bool IsAutoPlay => _isAutoPlay;
-        public int Score => _score;
+        public bool IsGameOver { get; set; }
         public int Lives => _lives;
+        public int Score => _score;
 
         #endregion
 
@@ -41,8 +46,8 @@ namespace Arcanoid.Services
         protected override void Awake()
         {
             base.Awake();
-
             _lives = _maxLives;
+            IsGameOver = false;
         }
 
         private void Start()
@@ -61,30 +66,41 @@ namespace Arcanoid.Services
 
         public void AddScore(int value)
         {
+            if (IsGameOver)
+            {
+                return;
+            }
+
             _score += value;
             OnScoreChanged?.Invoke(_score);
         }
 
-        public void CheckGameEnd()
+        public void ChangeLife(int value)
         {
-            if (_lives <= 0)
+            if (IsGameOver)
             {
-                Debug.LogError("GAME OVER!");
-                GameOverScreen.Instance.ShowGameOver();
+                return;
             }
-        }
 
-        public void RemoveLife(int value)
-        {
             _lives += value;
             _lives = Mathf.Clamp(_lives, 0, _maxLives);
             OnLiveChanged?.Invoke(_lives);
+            AudioService.Instance.PlaySfx(_overAudioClip);
             CheckGameEnd();
         }
 
-        public void ResetBall()
+        public void GameRestart()
         {
-            LevelService.Instance.Ball.ResetBall();
+            IsGameOver = false;
+            ResetScore();
+            ResetLives();
+            SceneLoaderService.Instance.LoadCurrentLevel();
+        }
+
+        public void ResetLives()
+        {
+            _lives = _maxLives;
+            OnLiveChanged?.Invoke(0);
         }
 
         #endregion
@@ -93,16 +109,30 @@ namespace Arcanoid.Services
 
         private void AllBlocksDestroyedCallback()
         {
-            if (SceneLoaderService.Instance.HasNextLevel())
+            if (SceneLoaderService.Instance.HasNextLevel()) // TODO: This is not fine
             {
-                SceneLoaderService.Instance.LoadNextLevel();
+                SceneLoaderService.Instance.LoadNextLevelDelayed();
             }
             else
             {
-                Debug.LogError("GAME WIN!");
+                WinGameScreen.Instance.ShowWinScreen();
             }
         }
 
+        public void CheckGameEnd()
+        {
+            if (_lives <= 0)
+            {
+                GameOverScreen.Instance.ShowGameOver();
+            }
+        }
+
+        private void ResetScore()
+        {
+            _score = 0;
+        }
+
         #endregion
+
     }
 }

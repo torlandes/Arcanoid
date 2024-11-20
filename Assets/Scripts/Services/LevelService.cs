@@ -9,6 +9,7 @@ namespace Arcanoid.Services
     {
         #region Variables
 
+        private readonly List<Ball> _balls = new();
         private readonly List<Block> _blocks = new();
 
         #endregion
@@ -22,6 +23,9 @@ namespace Arcanoid.Services
         #region Properties
 
         public Ball Ball { get; private set; }
+        public Platform Platform { get; private set; }
+        public List<Ball> Balls => _balls;
+        public IReadOnlyList<Block> Blocks => _blocks;
 
         #endregion
 
@@ -49,16 +53,53 @@ namespace Arcanoid.Services
 
         #endregion
 
+        #region Public methods
+
+        public Ball GetFirstBall()
+        {
+            if (_balls.Count == 0)
+            {
+                return null;
+            }
+
+            return _balls[0];
+        }
+
+        public bool IsLastBall()
+        {
+            return _balls.Count < 2;
+        }
+
+        public void ResetBalls()
+        {
+            foreach (Ball ball in _balls)
+            {
+                ball.ResetBall();
+                if (GameService.Instance.IsAutoPlay)
+                {
+                    ball.ForceStart();
+                }
+            }
+        }
+        
+        #endregion
+
         #region Private methods
 
         private void BallCreatedCallback(Ball ball)
         {
             Ball = ball;
+            _balls.Add(ball);
         }
 
         private void BallDestroyedCallback(Ball ball)
         {
             Ball = null;
+            _balls.Remove(ball);
+            if (_balls.Count == 0)
+            {
+                GameService.Instance.CheckGameEnd();
+            }
         }
 
         private void BlockCreatedCallback(Block block)
