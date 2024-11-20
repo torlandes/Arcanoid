@@ -3,11 +3,12 @@ using UnityEngine;
 
 namespace Arcanoid.Game.PickUps
 {
-    public class ChangeScorePick : PickUp
+    public class ChangeLifePickUp : PickUp
     {
         #region Variables
 
-        private int _score;
+        [Header(nameof(ChangeLifePickUp))]
+        [SerializeField] private int _lifeChange;
 
         #endregion
 
@@ -17,7 +18,7 @@ namespace Arcanoid.Game.PickUps
         {
             base.PerformActions();
 
-            GameService.Instance.AddScore(_score);
+            GameService.Instance.ChangeLife(_lifeChange);
         }
 
         #endregion

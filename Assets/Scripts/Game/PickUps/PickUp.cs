@@ -8,8 +8,9 @@ namespace Arcanoid.Game.PickUps
     {
         #region Variables
 
-        [SerializeField] private GameObject _scoreVfxPrefab;
-        [SerializeField] private AudioClip _scoreAudioClip;
+        [SerializeField] private GameObject _pickUpVfxPrefab;
+        [SerializeField] private AudioClip _pickUpAudioClip;
+        [SerializeField] private int _score;
 
         #endregion
 
@@ -26,16 +27,16 @@ namespace Arcanoid.Game.PickUps
 
         #endregion
 
-        #region Private methods
+        #region Protected methods
 
         protected virtual void PerformActions()
         {
-            AudioService.Instance.PlaySfx(_scoreAudioClip);
-            if (_scoreVfxPrefab != null)
+            AudioService.Instance.PlaySfx(_pickUpAudioClip);
+            GameService.Instance.AddScore(_score);
+            if (_pickUpVfxPrefab != null)
             {
-                Instantiate(_scoreVfxPrefab, transform.position, Quaternion.identity);
+                Instantiate(_pickUpVfxPrefab, transform.position, Quaternion.identity);
             }
-            
         }
 
         #endregion
