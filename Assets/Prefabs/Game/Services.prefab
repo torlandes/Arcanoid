@@ -190,6 +190,7 @@ MonoBehaviour:
   - Level1
   - Level2
   - Level3
+  _newLevelDelay: 0.5
 --- !u!1 &5550323110578799810
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,6 +239,7 @@ MonoBehaviour:
   _maxLives: 3
   _score: 0
   _lives: 0
+  _overAudioClip: {fileID: 8300000, guid: ffb159a21c8a04135a5616979c828fab, type: 3}
 --- !u!1 &5651370405726766786
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,5 +409,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7adb162799a542f3963de0e6d945ed88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickUpSpawnProbability: 50
-  _pickUpPrefab: {fileID: 3837074736006279863, guid: 903ed37abbf0179469b8c534608effec, type: 3}
+  _pickUpSpawnProbability: 65
+  _pickUpPrefabs:
+  - Name: ScoreUpPickUp
+    pickUpPrefab: {fileID: 3837074736006279863, guid: 903ed37abbf0179469b8c534608effec, type: 3}
+    probability: 50
+  - Name: ScoreDownPickUp
+    pickUpPrefab: {fileID: 3837074736006279863, guid: b1d90770275cd124999d835f8c69c85c, type: 3}
+    probability: 25
+  - Name: SizeBallBigPickUp
+    pickUpPrefab: {fileID: 8940739972383612584, guid: d7de81b603a0c3342be47f1e8c0103b3, type: 3}
+    probability: 10
+  - Name: SizeBallSmallPickUp
+    pickUpPrefab: {fileID: 8940739972383612584, guid: 8cc4a505300275245be8dca3e79299d6, type: 3}
+    probability: 10
+  - Name: SizePlatformBigPickUp
+    pickUpPrefab: {fileID: 8068877365019128570, guid: 824ef7fb5df28c845894db2e2374b9ab, type: 3}
+    probability: 61.7
+  - Name: SizePlatformSmallPickUp
+    pickUpPrefab: {fileID: 8068877365019128570, guid: 46e6215b610b5d040bf890f63e1b5fa2, type: 3}
+    probability: 62.5
+  - Name: CatchBallPickUp
+    pickUpPrefab: {fileID: 2071830301667524917, guid: 136b8f7975532484789c28dc7a99ade1, type: 3}
+    probability: 10
+  - Name: ChangeLifeUpPickUp
+    pickUpPrefab: {fileID: 7756441790388543064, guid: fd872b755a0155a458f10adcda7b464b, type: 3}
+    probability: 10
+  - Name: ChangeLifeDownPickUp
+    pickUpPrefab: {fileID: 7756441790388543064, guid: 0f8c802cca458f346a7f98674bc4cfd0, type: 3}
+    probability: 10
+  - Name: ChangeBallSpeedUpPickUp
+    pickUpPrefab: {fileID: -7377555645743328553, guid: a8cc814aea2f2584cb422fef2259db94, type: 3}
+    probability: 10
+  - Name: ChangeBallSpeedDownPickUp
+    pickUpPrefab: {fileID: -7377555645743328553, guid: 36a4a6d132e08d5439538ffc786a4c85, type: 3}
+    probability: 10
+  - Name: CloneBallPickUp
+    pickUpPrefab: {fileID: -3181585594535783296, guid: 2e3a1f98b29f6d14aae75cc6b5d3ee50, type: 3}
+    probability: 3
