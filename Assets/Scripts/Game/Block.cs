@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Arcanoid.Services;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ namespace Arcanoid.Game
     public class Block : MonoBehaviour
     {
         #region Variables
-        
+
         [Header("Block Settings")]
         [SerializeField] private int _score = 1;
         [SerializeField] private SpriteRenderer _spriteRenderer;
@@ -49,21 +48,23 @@ namespace Arcanoid.Game
         private void OnCollisionEnter2D(Collision2D other)
         {
             OnCollisionImpact();
-            
+
             if (_life > 0)
             {
-                _life --;
+                _life--;
                 UpdateBlockSprite();
             }
+
             if (_life <= 0)
             {
                 DestroyBlock();
             }
+
             if (!_isInvisible)
             {
                 return;
             }
-            
+
             _spriteRenderer.enabled = true;
         }
 
@@ -123,25 +124,26 @@ namespace Arcanoid.Game
                 }
             }
         }
-        
-        private void UpdateBlockSprite()
-        {
-            if (_life == 2)
-            {
-                _spriteRenderer.sprite = _spriteLowCrackedBlock;
-            }
-        
-            if (_life == 1)
-            {
-                _spriteRenderer.sprite = _spriteHardCrackedBlock;
-            }
-        }
 
         private void OnCollisionImpact()
         {
             AudioService.Instance.PlaySfx(_explosionAudioClip);
             Instantiate(_explosionVfxPrefab, transform.position, Quaternion.identity);
         }
+
+        private void UpdateBlockSprite()
+        {
+            if (_life == 2)
+            {
+                _spriteRenderer.sprite = _spriteLowCrackedBlock;
+            }
+
+            if (_life == 1)
+            {
+                _spriteRenderer.sprite = _spriteHardCrackedBlock;
+            }
+        }
+
         #endregion
     }
 }

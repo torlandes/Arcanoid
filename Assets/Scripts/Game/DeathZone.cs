@@ -20,17 +20,24 @@ namespace Arcanoid.Game
                 return;
             }
 
-            if (other.gameObject.CompareTag(Tag.Ball))
+            if (other.gameObject.CompareTag(Tag.Ball) && LevelService.Instance.IsLastBall())
             {
-                GameService.Instance.RemoveLife(-1);
-                GameService.Instance.ResetBall();
-            }
+                GameService.Instance.ChangeLife(-1);
 
-            else
+                if (GameService.Instance.IsGameOver)
+                {
+                    Destroy(LevelService.Instance.GetFirstBall().gameObject);
+                    return;
+                }
+
+                LevelService.Instance.GetFirstBall().ResetBall();
+                return;
+            }
+            
+            if (other.gameObject.CompareTag(Tag.Ball))
             {
                 Destroy(other.gameObject);
             }
-            
         }
 
         private void OnTriggerEnter2D(Collider2D other)

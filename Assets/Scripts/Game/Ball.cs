@@ -93,6 +93,33 @@ namespace Arcanoid.Game
 
         #region Public methods
 
+        public void ChangeSpeed(float speedChange)
+        {
+            _speed += speedChange;
+            _rb.velocity = _rb.velocity.normalized * _speed;
+        }
+
+        public void ForceStart()
+        {
+            _isStarted = true;
+        }
+        public Rigidbody2D GetRigidBody()
+        {
+            return _rb;
+        }
+
+        public Vector2 GetRandomStartDirection()
+        {
+            float minAngleDeg = -75f;
+            float maxAngleDeg = 75f;
+            float minAngleRad = minAngleDeg * Mathf.Deg2Rad;
+            float maxAngleRad = maxAngleDeg * Mathf.Deg2Rad;
+            float randomAngle = Random.Range(minAngleRad, maxAngleRad);
+            Vector2 direction = new Vector2(Mathf.Sin(randomAngle), Mathf.Cos(randomAngle)).normalized;
+
+            return direction;
+        }
+
         public void ResetBall()
         {
             _isStarted = false;
@@ -116,19 +143,6 @@ namespace Arcanoid.Game
             _isStarted = true;
             Vector2 randomDirection = GetRandomStartDirection();
             _rb.velocity = randomDirection * _speed;
-        }
-
-        
-        public Vector2 GetRandomStartDirection()
-        {
-            float minAngleDeg = -75f;
-            float maxAngleDeg = 75f;
-            float minAngleRad = minAngleDeg * Mathf.Deg2Rad;
-            float maxAngleRad = maxAngleDeg * Mathf.Deg2Rad;
-            float randomAngle = Random.Range(minAngleRad, maxAngleRad);
-            Vector2 direction = new Vector2(Mathf.Sin(randomAngle), Mathf.Cos(randomAngle)).normalized;
-
-            return direction;
         }
 
         #endregion
