@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 namespace Arcanoid.UI
 {
-    public class GameOverScreen : MonoBehaviour
+    public class WinGameScreen : MonoBehaviour
     {
         #region Variables
 
-        public static GameOverScreen Instance;
+        public static WinGameScreen Instance;
 
         [Header("UI")]
         [SerializeField] private TMP_Text _scoreLabel;
-        [SerializeField] private TMP_Text _gameOverLabel;
-        [SerializeField] private GameObject _gameOverPanel;
-        [SerializeField] private AudioClip _overAudioClip;
+        [SerializeField] private TMP_Text _winLabel;
+        [SerializeField] private GameObject _winPanel;
+        [SerializeField] private AudioClip _winAudioClip;
         
         [Header("Buttons")]
         [SerializeField] private Button _menuButton;
@@ -36,14 +36,14 @@ namespace Arcanoid.UI
 
         #region Public methods
 
-        public void ShowGameOver()
+        public void ShowWinScreen()
         {
-            if (_gameOverPanel != null)
+            if (_winPanel != null)
             {
-                _gameOverPanel.SetActive(true);
-                _gameOverLabel.text = $"GAME OVER!\nTRY AGAIN";
+                _winPanel.SetActive(true);
+                _winLabel.text = $"YOU WIN!\nYOU BEST OF THE BEST!";
                 _scoreLabel.text = $"Total score: {GameService.Instance.Score}";
-                AudioService.Instance.PlaySfx(_overAudioClip);
+                AudioService.Instance.PlaySfx(_winAudioClip);
                 PauseService.Instance.TogglePause();
             }
         }
