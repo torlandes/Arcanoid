@@ -9,6 +9,8 @@ namespace Arcanoid.Game.PickUps
 
         [Header(nameof(ChangeBallSizePickUp))]
         [SerializeField] private float _sizeChange;
+        [SerializeField] private GameObject _ball;
+        
 
         #endregion
 
@@ -17,12 +19,14 @@ namespace Arcanoid.Game.PickUps
         protected override void PerformActions()
         {
             base.PerformActions();
+            
+            _ball.transform.localScale *=  1 + _sizeChange / 100;
 
-            Ball ball = LevelService.Instance.Ball;
-            if (ball != null)
-            {
-                ball.transform.localScale *= 1 + _sizeChange / 100;
-            }
+            // Ball ball = LevelService.Instance.Ball;
+            // if (ball != null)
+            // {
+            //     ball.transform.localScale *= 1 + _sizeChange / 100;
+            // }
         }
 
         #endregion
