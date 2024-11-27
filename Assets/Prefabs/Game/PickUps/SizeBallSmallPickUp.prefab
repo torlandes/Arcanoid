@@ -197,3 +197,4 @@ MonoBehaviour:
   _pickUpAudioClip: {fileID: 8300000, guid: 29bde6326b4c34ad8a12da475f79b50a, type: 3}
   _score: 5
   _sizeChange: -5
+  _ball: {fileID: 698212974289239403, guid: 365141866bd1cf04daf23ce7f7177d23, type: 3}

@@ -113,6 +113,7 @@ MonoBehaviour:
   _pickUpAudioClip: {fileID: 8300000, guid: 4e1ff8faed12a475eba9be0e46072269, type: 3}
   _score: 10
   _sizeChange: 7
+  _ball: {fileID: 698212974289239403, guid: 365141866bd1cf04daf23ce7f7177d23, type: 3}
 --- !u!1 &8528648130405300855
 GameObject:
   m_ObjectHideFlags: 0
