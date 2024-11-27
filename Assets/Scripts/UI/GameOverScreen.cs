@@ -1,6 +1,7 @@
 ﻿using Arcanoid.Services;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Arcanoid.UI
@@ -20,7 +21,7 @@ namespace Arcanoid.UI
         [Header("Buttons")]
         [SerializeField] private Button _menuButton;
         [SerializeField] private Button _exitButton;
-
+        
         #endregion
 
         #region Unity lifecycle
@@ -38,14 +39,11 @@ namespace Arcanoid.UI
 
         public void ShowGameOver()
         {
-            if (_gameOverPanel != null)
-            {
                 _gameOverPanel.SetActive(true);
                 _gameOverLabel.text = $"GAME OVER!\nTRY AGAIN";
                 _scoreLabel.text = $"Total score: {GameService.Instance.Score}";
                 AudioService.Instance.PlaySfx(_overAudioClip);
                 PauseService.Instance.TogglePause();
-            }
         }
 
         #endregion
@@ -54,7 +52,9 @@ namespace Arcanoid.UI
         
         private void MenuButtonClickedCallback()
         {
+            PauseService.Instance.TogglePause();
             GameService.Instance.GameRestart();
+            SceneManager.LoadScene(0);
         }        
         private void ExitButtonClickedCallback()
         {

@@ -1,6 +1,7 @@
 ﻿using Arcanoid.Services;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Arcanoid.UI
@@ -40,6 +41,7 @@ namespace Arcanoid.UI
         {
             if (_winPanel != null)
             {
+                Debug.Log("WTF");
                 _winPanel.SetActive(true);
                 _winLabel.text = $"YOU WIN!\nYOU BEST OF THE BEST!";
                 _scoreLabel.text = $"Total score: {GameService.Instance.Score}";
@@ -54,7 +56,9 @@ namespace Arcanoid.UI
         
         private void MenuButtonClickedCallback()
         {
+            PauseService.Instance.TogglePause();
             GameService.Instance.GameRestart();
+            SceneManager.LoadScene(0);
         }        
         private void ExitButtonClickedCallback()
         {
