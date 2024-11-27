@@ -10,9 +10,6 @@ namespace Arcanoid.Services
         #region Variables
 
         [SerializeField] private string[] _levelSceneNames;
-
-        // [SerializeField] private string _startSceneName;
-        // [SerializeField] private string _winSceneName;
         
         [SerializeField] private float _newLevelDelay = 0.5f;
 
@@ -34,26 +31,23 @@ namespace Arcanoid.Services
 
         #region Public methods
         
-        // public void LoadMenuScene()
-        // {
-        //     SceneManager.LoadScene(_startSceneName);
-        //     Debug.LogError("??????");
-        // }
-        
+        public bool HasNextLevel()
+        {
+            return _levelSceneNames.Length > _currentSceneIndex + 1;
+        }
+
         public void LoadFirstLevel()
         {
-            if (_isLoadingNextScene)
-            {
-                return;
-            }
-            _currentSceneIndex = 0;
-            LoadCurrentScene();
+            SceneManager.LoadScene(1);
         }
         
-        public void LoadCurrentLevel()
+        public void LoadLevel(int index)
         {
-            SceneManager.LoadScene(_currentSceneIndex);
-            PauseService.Instance.TogglePause();
+            if (index >= 0 && index < _levelSceneNames.Length)
+            {
+                _currentSceneIndex = index;
+                LoadCurrentScene();
+            }
         }
 
         public void LoadNextLevel()
@@ -67,16 +61,6 @@ namespace Arcanoid.Services
             StartCoroutine(LoadNextLevelDelayedInternal());
         }
         
-        public bool HasNextLevel()
-        {
-            return _levelSceneNames.Length > _currentSceneIndex + 1;
-        }
-        
-        // public void LoadWinScene()
-        // {
-        //     SceneManager.LoadScene(_winSceneName);
-        // }        
-        
         public void ExitGame()
         {
 #if UNITY_EDITOR
@@ -84,13 +68,7 @@ namespace Arcanoid.Services
 #endif
             Application.Quit();
         }
-
-        // public void LoadLevelWithName(string levelName)
-        // {
-        //     _currentSceneIndex = GetSceneIndex(levelName);
-        //     LoadCurrentScene();
-        // }
-
+        
         #endregion
 
         #region Private methods
@@ -110,19 +88,6 @@ namespace Arcanoid.Services
             }
         }
 
-        // private int GetSceneIndex(string levelName)
-        // {
-        //     for (int i = 0; i < _levelSceneNames.Length; i++)
-        //     {
-        //         if (string.Equals(_levelSceneNames[i], levelName))
-        //         {
-        //             return i;
-        //         }
-        //     }
-        //
-        //     return -1;
-        // }
-
         private void LoadCurrentScene()
         {
             SceneManager.LoadScene(_levelSceneNames[_currentSceneIndex]);
@@ -135,5 +100,11 @@ namespace Arcanoid.Services
         }
 
         #endregion
+        
+        public bool CheckedMenuScene()
+        {
+            return _currentSceneIndex == 0;
+        }
+        
     }
 }

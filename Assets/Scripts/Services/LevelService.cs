@@ -23,9 +23,7 @@ namespace Arcanoid.Services
         #region Properties
 
         public Ball Ball { get; private set; }
-        public Platform Platform { get; private set; }
         public List<Ball> Balls => _balls;
-        public IReadOnlyList<Block> Blocks => _blocks;
 
         #endregion
 

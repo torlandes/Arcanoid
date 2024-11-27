@@ -18,7 +18,7 @@ namespace Arcanoid.Services
 
         [Header("Prefabs list with probabilities")]
         [SerializeField] private List<PickUpAndProbability> _pickUpPrefabs;
-
+        
         #endregion
 
         #region Unity lifecycle
@@ -108,21 +108,5 @@ namespace Arcanoid.Services
         }
 
         #endregion
-
-        // [SerializeField] private PickUp _pickUpPrefab;
-
-        // public void SpawnPickUp(Vector3 position)
-        // {
-        //     if (_pickUpPrefab == null)
-        //     {
-        //         return;
-        //     }
-        //
-        //     int random = Random.Range(0, 101);
-        //     if (random > _pickUpSpawnProbability)
-        //     {
-        //         Instantiate(_pickUpPrefab, position, Quaternion.identity);
-        //     }
-        // }
     }
 }

@@ -2,6 +2,7 @@
 using Arcanoid.UI;
 using Arcanoid.Utility;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Arcanoid.Services
 {
@@ -94,7 +95,6 @@ namespace Arcanoid.Services
             IsGameOver = false;
             ResetScore();
             ResetLives();
-            SceneLoaderService.Instance.LoadCurrentLevel();
         }
 
         public void ResetLives()
@@ -109,7 +109,7 @@ namespace Arcanoid.Services
 
         private void AllBlocksDestroyedCallback()
         {
-            if (SceneLoaderService.Instance.HasNextLevel()) // TODO: This is not fine
+            if (SceneLoaderService.Instance.HasNextLevel()) //  TODO: This is not fine
             {
                 SceneLoaderService.Instance.LoadNextLevelDelayed();
             }
