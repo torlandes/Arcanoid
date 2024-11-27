@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 6719571339098743737}
   m_Layer: 8
   m_Name: BlockMetalTriangle
-  m_TagString: Untagged
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

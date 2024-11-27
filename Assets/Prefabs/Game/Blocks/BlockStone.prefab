@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8082392251838099463}
   m_Layer: 8
   m_Name: BlockStone
-  m_TagString: Untagged
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
