@@ -13,6 +13,7 @@ namespace Arcanoid.UI
         
         [Header("Buttons")]
         [SerializeField] private Button _continueButton;
+        [SerializeField] private Button _menuButton;
         [SerializeField] private Button _exitButton;
 
         #endregion
@@ -21,8 +22,23 @@ namespace Arcanoid.UI
 
         private void Awake()
         {
+            _menuButton.onClick.AddListener(MenuButtonClickedCallback);
             _continueButton.onClick.AddListener(ContinueButtonClickedCallback);
             _exitButton.onClick.AddListener(ExitButtonClickedCallback);
+        }
+
+        private void MenuButtonClickedCallback()
+        {
+            // GameService.Instance.GameRestart();
+            // SceneLoaderService.Instance.LoadFirstLevel();
+            
+            // PauseService.Instance.TogglePause();
+            // GameService.Instance.GameRestart();
+            // SceneManager.LoadScene(0);
+            
+            PauseService.Instance.TogglePause();
+            GameService.Instance.GameRestart();
+            SceneManager.LoadScene("StartScene");
         }
 
         private void Start()
@@ -51,7 +67,11 @@ namespace Arcanoid.UI
         }
         private void PauseChangedCallback(bool isPaused)
         {
-            _contentGameObject.SetActive(isPaused);
+            if (_contentGameObject != null)
+            {
+                _contentGameObject.SetActive(isPaused);
+            }
+
         }
         
         #endregion

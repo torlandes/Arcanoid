@@ -17,8 +17,9 @@ namespace Arcanoid.UI
         [SerializeField] private TMP_Text _winLabel;
         [SerializeField] private GameObject _winPanel;
         [SerializeField] private AudioClip _winAudioClip;
-        
+
         [Header("Buttons")]
+        [SerializeField] private Button _nextLevelButton;
         [SerializeField] private Button _menuButton;
         [SerializeField] private Button _exitButton;
 
@@ -29,10 +30,11 @@ namespace Arcanoid.UI
         private void Awake()
         {
             Instance = this;
+            _nextLevelButton.onClick.AddListener(NextLevelButtonClickedCallback);
             _menuButton.onClick.AddListener(MenuButtonClickedCallback);
             _exitButton.onClick.AddListener(ExitButtonClickedCallback);
         }
-        
+
         #endregion
 
         #region Public methods
@@ -43,8 +45,8 @@ namespace Arcanoid.UI
             {
                 Debug.Log("WTF");
                 _winPanel.SetActive(true);
-                _winLabel.text = $"YOU WIN!\nYOU BEST OF THE BEST!";
-                _scoreLabel.text = $"Total score: {GameService.Instance.Score}";
+                _winLabel.text = "YOU BEST OF THE BEST!";
+                _scoreLabel.text = $"\nTotal score: {GameService.Instance.Score}";
                 AudioService.Instance.PlaySfx(_winAudioClip);
                 PauseService.Instance.TogglePause();
             }
@@ -53,16 +55,26 @@ namespace Arcanoid.UI
         #endregion
 
         #region Private methods
-        
-        private void MenuButtonClickedCallback()
-        {
-            PauseService.Instance.TogglePause();
-            GameService.Instance.GameRestart();
-            SceneManager.LoadScene(0);
-        }        
+
         private void ExitButtonClickedCallback()
         {
             SceneLoaderService.Instance.ExitGame();
+        }
+
+        private void MenuButtonClickedCallback()
+        {
+            // GameService.Instance.GameRestart();
+            // SceneLoaderService.Instance.LoadFirstLevel();
+            
+            PauseService.Instance.TogglePause();
+            GameService.Instance.GameRestart();
+            SceneManager.LoadScene("StartScene");
+        }
+
+        private void NextLevelButtonClickedCallback()
+        {
+            PauseService.Instance.TogglePause();
+            SceneLoaderService.Instance.LoadNextLevel();
         }
 
         #endregion

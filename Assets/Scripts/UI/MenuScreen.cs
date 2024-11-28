@@ -1,3 +1,4 @@
+using System;
 using Arcanoid.Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,12 +16,12 @@ namespace Arcanoid.UI
         [SerializeField] private GameObject _buttons;
         [SerializeField] private GameObject _scrollView;
         
-        private int _selectedLevel = -1;
+        // private int _selectedLevel = -1;
         
         #endregion
 
         #region Unity lifecycle
-
+        
         private void Awake()
         {
             _buttonStart.onClick.AddListener(StartButtonClickedCallback);
@@ -30,12 +31,13 @@ namespace Arcanoid.UI
         
         private void StartButtonClickedCallback()
         {
-            if (_selectedLevel >= 0)
-            {
-                SceneLoaderService.Instance.LoadLevel(_selectedLevel);
-            }
-            GameService.Instance.GameRestart();
-            SceneLoaderService.Instance.LoadFirstLevel();
+            SceneManager.LoadScene(1);
+            // if (_selectedLevel >= 0)
+            // {
+            //     SceneLoaderService.Instance.LoadLevel(_selectedLevel);
+            // }
+            // GameService.Instance.GameRestart();
+            // SceneLoaderService.Instance.LoadFirstLevel();
         }
 
         #endregion
@@ -46,7 +48,7 @@ namespace Arcanoid.UI
         {
             _buttons.SetActive(false);
             _scrollView.SetActive(true);
-        }
+        }        
         
         private void ExitButtonClickedCallback()
         {

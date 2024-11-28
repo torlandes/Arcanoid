@@ -17,7 +17,7 @@ namespace Arcanoid.UI
         [SerializeField] private TMP_Text _gameOverLabel;
         [SerializeField] private GameObject _gameOverPanel;
         [SerializeField] private AudioClip _overAudioClip;
-        
+
         [Header("Buttons")]
         [SerializeField] private Button _menuButton;
         [SerializeField] private Button _exitButton;
@@ -32,33 +32,37 @@ namespace Arcanoid.UI
             _menuButton.onClick.AddListener(MenuButtonClickedCallback);
             _exitButton.onClick.AddListener(ExitButtonClickedCallback);
         }
-        
+
         #endregion
 
         #region Public methods
 
         public void ShowGameOver()
         {
+            if (_gameOverPanel != null)
+            {
                 _gameOverPanel.SetActive(true);
-                _gameOverLabel.text = $"GAME OVER!\nTRY AGAIN";
+                _gameOverLabel.text = "GAME OVER!\nTRY AGAIN";
                 _scoreLabel.text = $"Total score: {GameService.Instance.Score}";
                 AudioService.Instance.PlaySfx(_overAudioClip);
                 PauseService.Instance.TogglePause();
+            }
         }
 
         #endregion
 
         #region Private methods
+
+        private void ExitButtonClickedCallback()
+        {
+            SceneLoaderService.Instance.ExitGame();
+        }
         
         private void MenuButtonClickedCallback()
         {
             PauseService.Instance.TogglePause();
             GameService.Instance.GameRestart();
-            SceneManager.LoadScene(0);
-        }        
-        private void ExitButtonClickedCallback()
-        {
-            SceneLoaderService.Instance.ExitGame();
+            SceneManager.LoadScene("StartScene");
         }
 
         #endregion

@@ -38,7 +38,12 @@ namespace Arcanoid.Services
 
         public void LoadFirstLevel()
         {
-            SceneManager.LoadScene(1);
+            if (_isLoadingNextScene)
+            {
+                return;
+            }
+            _currentSceneIndex = 0;
+            LoadCurrentScene();
         }
         
         public void LoadLevel(int index)
@@ -52,6 +57,7 @@ namespace Arcanoid.Services
 
         public void LoadNextLevel()
         {
+            DetectCurrentSceneIndex();
             _currentSceneIndex++;
             LoadCurrentScene();
         }
@@ -99,12 +105,12 @@ namespace Arcanoid.Services
             LoadNextLevel();
         }
 
-        #endregion
-        
-        public bool CheckedMenuScene()
+        public bool CheckNoMenu()
         {
             return _currentSceneIndex == 0;
-        }
+        }          
+        
+        #endregion
         
     }
 }

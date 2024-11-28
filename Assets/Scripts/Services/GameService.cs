@@ -109,12 +109,14 @@ namespace Arcanoid.Services
 
         private void AllBlocksDestroyedCallback()
         {
-            if (SceneLoaderService.Instance.HasNextLevel()) //  TODO: This is not fine
+            if (SceneLoaderService.Instance.HasNextLevel() && SceneLoaderService.Instance.CheckNoMenu()) //  TODO: This is not fine
             {
+                Debug.Log("HAS LEVEEEEEL");
                 SceneLoaderService.Instance.LoadNextLevelDelayed();
             }
             else
             {
+                Debug.Log("WIN?");
                 WinGameScreen.Instance.ShowWinScreen();
             }
         }
