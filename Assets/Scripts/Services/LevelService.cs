@@ -1,14 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Arcanoid.Game;
 using Arcanoid.Utility;
+using UnityEngine;
 
 namespace Arcanoid.Services
 {
     public class LevelService : SingletonMonoBehaviour<LevelService>
     {
         #region Variables
-
+        
         private readonly List<Ball> _balls = new();
         private readonly List<Block> _blocks = new();
 
@@ -24,6 +26,8 @@ namespace Arcanoid.Services
 
         public Ball Ball { get; private set; }
         public List<Ball> Balls => _balls;
+
+        public bool IsGameOver { get; set; }
 
         #endregion
 
@@ -52,7 +56,7 @@ namespace Arcanoid.Services
         #endregion
 
         #region Public methods
-
+        
         public Ball GetFirstBall()
         {
             if (_balls.Count == 0)
@@ -79,7 +83,7 @@ namespace Arcanoid.Services
                 }
             }
         }
-        
+
         #endregion
 
         #region Private methods
@@ -103,16 +107,25 @@ namespace Arcanoid.Services
         private void BlockCreatedCallback(Block block)
         {
             _blocks.Add(block);
+            // Debug.Log("ADD BLOCK COUNT " + _blocks.Count); //todo
         }
 
         private void BlockDestroyedCallback(Block block)
         {
             _blocks.Remove(block);
-
+            
+            // Debug.LogError("REMOVE BLOCK COUNT " + _blocks.Count); //todo
+            
             if (_blocks.Count == 0)
             {
+                // Debug.LogAssertion("FINAL BLOCK COUNT " + _blocks.Count);
                 OnAllBlocksDestroyed?.Invoke();
             }
+        }
+
+        public void BlockCountReset()
+        {
+            _blocks.Clear();
         }
 
         #endregion

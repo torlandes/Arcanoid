@@ -10,11 +10,10 @@ namespace Arcanoid.Services
         #region Variables
 
         [SerializeField] private string[] _levelSceneNames;
-        
         [SerializeField] private float _newLevelDelay = 0.5f;
 
         private int _currentSceneIndex;
-        
+
         private bool _isLoadingNextScene;
 
         #endregion
@@ -25,34 +24,30 @@ namespace Arcanoid.Services
         {
             base.Awake();
             DetectCurrentSceneIndex();
+            LevelService.Instance.BlockCountReset();
         }
 
         #endregion
 
         #region Public methods
-        
-        public bool HasNextLevel()
+
+        public void ChooseLevel(string levelName)
         {
-            return _levelSceneNames.Length > _currentSceneIndex + 1;
+            SceneManager.LoadScene(levelName);
+        }
+
+        public void ExitGame()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            Application.Quit();
         }
 
         public void LoadFirstLevel()
         {
-            if (_isLoadingNextScene)
-            {
-                return;
-            }
             _currentSceneIndex = 0;
-            LoadCurrentScene();
-        }
-        
-        public void LoadLevel(int index)
-        {
-            if (index >= 0 && index < _levelSceneNames.Length)
-            {
-                _currentSceneIndex = index;
-                LoadCurrentScene();
-            }
+            LoadNextLevel();
         }
 
         public void LoadNextLevel()
@@ -66,15 +61,7 @@ namespace Arcanoid.Services
         {
             StartCoroutine(LoadNextLevelDelayedInternal());
         }
-        
-        public void ExitGame()
-        {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#endif
-            Application.Quit();
-        }
-        
+
         #endregion
 
         #region Private methods
@@ -105,12 +92,6 @@ namespace Arcanoid.Services
             LoadNextLevel();
         }
 
-        public bool CheckNoMenu()
-        {
-            return _currentSceneIndex == 0;
-        }          
-        
         #endregion
-        
     }
 }

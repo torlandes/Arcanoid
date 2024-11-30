@@ -34,7 +34,6 @@ namespace Arcanoid.Services
 
         public void TogglePause()
         {
-            Debug.LogError("FUCK!");
             IsPaused = !IsPaused;
             Time.timeScale = IsPaused ? 0 : 1;
             OnChanged?.Invoke(IsPaused);
