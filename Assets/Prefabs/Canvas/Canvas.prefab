@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6394320896703972025}
+  - component: {fileID: 2943293934380108374}
   m_Layer: 5
   m_Name: GameOver - Content
   m_TagString: Untagged
@@ -40,6 +41,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &2943293934380108374
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25995519033291107}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &61170894432956655
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,6 +615,8 @@ MonoBehaviour:
   _overAudioClip: {fileID: 8300000, guid: 5fdb13d3756c84fecac96f5a2d124370, type: 3}
   _menuButton: {fileID: 7295448117570399158}
   _exitButton: {fileID: 2814728817366795525}
+  _canvasGroup: {fileID: 2943293934380108374}
+  _animationTime: 1
 --- !u!1 &1139564612077973439
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,6 +670,8 @@ MonoBehaviour:
   _continueButton: {fileID: 9069409124027505721}
   _menuButton: {fileID: 3518780933272537205}
   _exitButton: {fileID: 6020285953080217652}
+  _canvasGroup: {fileID: 5410962349169183677}
+  _animationTime: 1
 --- !u!1 &1527538730846259687
 GameObject:
   m_ObjectHideFlags: 0
@@ -2184,6 +2201,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4444503887617153832}
+  - component: {fileID: 9080488261343051887}
   m_Layer: 5
   m_Name: Win - Content
   m_TagString: Untagged
@@ -2216,6 +2234,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &9080488261343051887
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5371537471990438468}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5784772815538566632
 GameObject:
   m_ObjectHideFlags: 0
@@ -2359,6 +2389,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8437607057989756927}
+  - component: {fileID: 5410962349169183677}
   m_Layer: 5
   m_Name: PauseScreen - Content
   m_TagString: Untagged
@@ -2390,6 +2421,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &5410962349169183677
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6377918055089406342}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6422806816953813780
 GameObject:
   m_ObjectHideFlags: 0
@@ -2873,6 +2916,8 @@ MonoBehaviour:
   _nextLevelButton: {fileID: 1156787914731025505}
   _menuButton: {fileID: 4007900953389889027}
   _exitButton: {fileID: 4671215386475992192}
+  _canvasGroup: {fileID: 9080488261343051887}
+  _animationTime: 1
 --- !u!1 &7788253105027488889
 GameObject:
   m_ObjectHideFlags: 0
