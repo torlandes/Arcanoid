@@ -31,13 +31,7 @@ namespace Arcanoid.UI
         
         private void StartButtonClickedCallback()
         {
-            SceneManager.LoadScene(1);
-            // if (_selectedLevel >= 0)
-            // {
-            //     SceneLoaderService.Instance.LoadLevel(_selectedLevel);
-            // }
-            // GameService.Instance.GameRestart();
-            // SceneLoaderService.Instance.LoadFirstLevel();
+            SceneLoaderService.Instance.LoadFirstLevel();
         }
 
         #endregion

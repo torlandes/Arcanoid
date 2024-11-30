@@ -1,4 +1,5 @@
-﻿using Arcanoid.Services;
+﻿using System.Collections;
+using Arcanoid.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,6 +23,12 @@ namespace Arcanoid.UI
         [SerializeField] private Button _menuButton;
         [SerializeField] private Button _exitButton;
         
+        [Header("Animation")]
+        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private float _animationTime = 1f;
+        
+        private Coroutine _fadeInAnimation;
+        
         #endregion
 
         #region Unity lifecycle
@@ -31,6 +38,9 @@ namespace Arcanoid.UI
             Instance = this;
             _menuButton.onClick.AddListener(MenuButtonClickedCallback);
             _exitButton.onClick.AddListener(ExitButtonClickedCallback);
+            
+            _gameOverPanel.SetActive(false);
+            _canvasGroup.alpha = 0;
         }
 
         #endregion
@@ -42,10 +52,12 @@ namespace Arcanoid.UI
             if (_gameOverPanel != null)
             {
                 _gameOverPanel.SetActive(true);
-                _gameOverLabel.text = "GAME OVER!\nTRY AGAIN";
+                _gameOverLabel.text = "GAME OVER!\nTRY AGAIN!";
                 _scoreLabel.text = $"Total score: {GameService.Instance.Score}";
                 AudioService.Instance.PlaySfx(_overAudioClip);
                 PauseService.Instance.TogglePause();
+                
+                _fadeInAnimation = StartCoroutine(PlayFadeInAnimation());
             }
         }
 
@@ -60,9 +72,18 @@ namespace Arcanoid.UI
         
         private void MenuButtonClickedCallback()
         {
-            PauseService.Instance.TogglePause();
             GameService.Instance.GameRestart();
-            SceneManager.LoadScene("StartScene");
+        }
+        
+        private IEnumerator PlayFadeInAnimation()
+        {
+            _gameOverPanel.SetActive(true);
+
+            while (_canvasGroup.alpha < 1)
+            {
+                _canvasGroup.alpha += Time.unscaledDeltaTime / _animationTime;
+                yield return null;
+            }
         }
 
         #endregion

@@ -1,8 +1,10 @@
-﻿using Arcanoid.Services;
+﻿using System.Collections;
+using Arcanoid.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 namespace Arcanoid.UI
 {
@@ -22,6 +24,12 @@ namespace Arcanoid.UI
         [SerializeField] private Button _nextLevelButton;
         [SerializeField] private Button _menuButton;
         [SerializeField] private Button _exitButton;
+        
+        [Header("Animation")]
+        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private float _animationTime = 1f;
+        
+        private Coroutine _fadeInAnimation;
 
         #endregion
 
@@ -33,6 +41,9 @@ namespace Arcanoid.UI
             _nextLevelButton.onClick.AddListener(NextLevelButtonClickedCallback);
             _menuButton.onClick.AddListener(MenuButtonClickedCallback);
             _exitButton.onClick.AddListener(ExitButtonClickedCallback);
+            
+            _winPanel.SetActive(false);
+            _canvasGroup.alpha = 0;
         }
 
         #endregion
@@ -45,10 +56,11 @@ namespace Arcanoid.UI
             {
                 Debug.Log("WTF");
                 _winPanel.SetActive(true);
-                _winLabel.text = "YOU BEST OF THE BEST!";
+                _winLabel.text = "CONGLATURATION!! \nEAT PILLOW!";
                 _scoreLabel.text = $"\nTotal score: {GameService.Instance.Score}";
                 AudioService.Instance.PlaySfx(_winAudioClip);
                 PauseService.Instance.TogglePause();
+                _fadeInAnimation = StartCoroutine(PlayFadeInAnimation());
             }
         }
 
@@ -63,12 +75,7 @@ namespace Arcanoid.UI
 
         private void MenuButtonClickedCallback()
         {
-            // GameService.Instance.GameRestart();
-            // SceneLoaderService.Instance.LoadFirstLevel();
-            
-            PauseService.Instance.TogglePause();
             GameService.Instance.GameRestart();
-            SceneManager.LoadScene("StartScene");
         }
 
         private void NextLevelButtonClickedCallback()
@@ -76,6 +83,18 @@ namespace Arcanoid.UI
             PauseService.Instance.TogglePause();
             SceneLoaderService.Instance.LoadNextLevel();
         }
+        
+        private IEnumerator PlayFadeInAnimation()
+        {
+            _winPanel.SetActive(true);
+
+            while (_canvasGroup.alpha < 1)
+            {
+                _canvasGroup.alpha += Time.unscaledDeltaTime / _animationTime;
+                yield return null;
+            }
+        }
+
 
         #endregion
     }

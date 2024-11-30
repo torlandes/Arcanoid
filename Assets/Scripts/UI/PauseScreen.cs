@@ -1,6 +1,6 @@
-﻿using Arcanoid.Services;
+﻿using System.Collections;
+using Arcanoid.Services;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Arcanoid.UI
@@ -10,11 +10,18 @@ namespace Arcanoid.UI
         #region Variables
 
         [SerializeField] private GameObject _contentGameObject;
-        
+
         [Header("Buttons")]
         [SerializeField] private Button _continueButton;
         [SerializeField] private Button _menuButton;
         [SerializeField] private Button _exitButton;
+
+        [Header("Animation")]
+        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private float _animationTime = 1f;
+
+        private Coroutine _fadeInAnimation;
+        private Coroutine _fadeOutAnimation;
 
         #endregion
 
@@ -25,20 +32,9 @@ namespace Arcanoid.UI
             _menuButton.onClick.AddListener(MenuButtonClickedCallback);
             _continueButton.onClick.AddListener(ContinueButtonClickedCallback);
             _exitButton.onClick.AddListener(ExitButtonClickedCallback);
-        }
 
-        private void MenuButtonClickedCallback()
-        {
-            // GameService.Instance.GameRestart();
-            // SceneLoaderService.Instance.LoadFirstLevel();
-            
-            // PauseService.Instance.TogglePause();
-            // GameService.Instance.GameRestart();
-            // SceneManager.LoadScene(0);
-            
-            PauseService.Instance.TogglePause();
-            GameService.Instance.GameRestart();
-            SceneManager.LoadScene("StartScene");
+            _contentGameObject.SetActive(false);
+            _canvasGroup.alpha = 0;
         }
 
         private void Start()
@@ -59,21 +55,62 @@ namespace Arcanoid.UI
         {
             PauseService.Instance.TogglePause();
         }
-        
-        
+
         private void ExitButtonClickedCallback()
         {
             SceneLoaderService.Instance.ExitGame();
         }
+
+        private void MenuButtonClickedCallback()
+        {
+            GameService.Instance.GameRestart();
+        }
+
         private void PauseChangedCallback(bool isPaused)
         {
-            if (_contentGameObject != null)
+            if (isPaused)
             {
-                _contentGameObject.SetActive(isPaused);
+                if (_fadeOutAnimation != null)
+                {
+                    StopCoroutine(_fadeOutAnimation);
+                }
+
+                _fadeInAnimation = StartCoroutine(PlayFadeInAnimation());
+            }
+            else
+            {
+                if (_fadeInAnimation != null)
+                {
+                    StopCoroutine(_fadeInAnimation);
+                }
+
+                _fadeOutAnimation = StartCoroutine(PlayFadeOutAnimation());
+            }
+        }
+
+        private IEnumerator PlayFadeInAnimation()
+        {
+            _contentGameObject.SetActive(true);
+
+            while (_canvasGroup.alpha < 1)
+            {
+                _canvasGroup.alpha += Time.unscaledDeltaTime / _animationTime;
+                yield return null;
+            }
+        }
+
+        private IEnumerator PlayFadeOutAnimation()
+        {
+
+            while (_canvasGroup.alpha > 0)
+            {
+                _canvasGroup.alpha -= Time.unscaledDeltaTime / _animationTime;
+                yield return null;
             }
 
+            _contentGameObject.SetActive(false);
         }
-        
+
         #endregion
     }
 }

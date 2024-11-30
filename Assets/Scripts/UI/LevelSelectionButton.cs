@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using Arcanoid.Services;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,7 +12,8 @@ namespace Arcanoid.UI
 
         [SerializeField] private Button _button;
         [SerializeField] private TMP_Text _buttonText;
-        [SerializeField] private int _indexScene;
+        [SerializeField] private string _levelName;
+        
 
         #endregion
 
@@ -28,8 +30,7 @@ namespace Arcanoid.UI
 
         private void SelectLevelClickedCallback()
         {
-            int index = _indexScene;
-            SceneManager.LoadScene(index);
+            SceneLoaderService.Instance.ChooseLevel(levelName:_levelName);
         }
 
         #endregion
