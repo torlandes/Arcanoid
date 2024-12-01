@@ -50,7 +50,7 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 766949982423358201}
   _spriteLowCrackedBlock: {fileID: 21300000, guid: 87e9c57e4229056458f461b7bb9b733a, type: 3}
   _spriteHardCrackedBlock: {fileID: 21300000, guid: 87e9c57e4229056458f461b7bb9b733a, type: 3}
-  _life: 1
+  _life: 2
   _isInvisible: 0
   _isExplosive: 0
   _explosiveRadius: 1
