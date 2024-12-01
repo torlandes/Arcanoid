@@ -38,6 +38,12 @@ namespace Arcanoid.Services
             Time.timeScale = IsPaused ? 0 : 1;
             OnChanged?.Invoke(IsPaused);
         }
+        
+        public void TogglePause2()
+        {
+            IsPaused = !IsPaused;
+            Time.timeScale = IsPaused ? 0 : 1;
+        }
 
         #endregion
 

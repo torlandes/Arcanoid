@@ -95,7 +95,7 @@ namespace Arcanoid.Services
             IsGameOver = false;
             ResetScore();
             ResetLives();
-            PauseService.Instance.TogglePause();
+            PauseService.Instance.TogglePause2();
             
             SceneManager.LoadScene("StartScene");
             LevelService.Instance.BlockCountReset();
