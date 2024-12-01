@@ -56,10 +56,10 @@ namespace Arcanoid.UI
             {
                 Debug.Log("WTF");
                 _winPanel.SetActive(true);
-                _winLabel.text = "CONGLATURATION!! \nEAT PILLOW!";
+                _winLabel.text = "CONGLATURATION!!";
                 _scoreLabel.text = $"\nTotal score: {GameService.Instance.Score}";
                 AudioService.Instance.PlaySfx(_winAudioClip);
-                PauseService.Instance.TogglePause();
+                PauseService.Instance.TogglePause2();
                 _fadeInAnimation = StartCoroutine(PlayFadeInAnimation());
             }
         }
@@ -80,7 +80,7 @@ namespace Arcanoid.UI
 
         private void NextLevelButtonClickedCallback()
         {
-            PauseService.Instance.TogglePause();
+            PauseService.Instance.TogglePause2();
             SceneLoaderService.Instance.LoadNextLevel();
         }
         

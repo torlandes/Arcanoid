@@ -55,7 +55,7 @@ namespace Arcanoid.UI
                 _gameOverLabel.text = "GAME OVER!\nTRY AGAIN!";
                 _scoreLabel.text = $"Total score: {GameService.Instance.Score}";
                 AudioService.Instance.PlaySfx(_overAudioClip);
-                PauseService.Instance.TogglePause();
+                PauseService.Instance.TogglePause2();
                 
                 _fadeInAnimation = StartCoroutine(PlayFadeInAnimation());
             }
