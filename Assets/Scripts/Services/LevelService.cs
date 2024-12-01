@@ -26,9 +26,8 @@ namespace Arcanoid.Services
 
         public Ball Ball { get; private set; }
         public List<Ball> Balls => _balls;
-
-        public bool IsGameOver { get; set; }
-
+        public Platform Platform { get; private set; }
+        
         #endregion
 
         #region Unity lifecycle
@@ -42,6 +41,9 @@ namespace Arcanoid.Services
 
             Ball.OnCreated += BallCreatedCallback;
             Ball.OnDestroyed += BallDestroyedCallback;
+            
+            Platform.OnCreated += PlatformCreatedCallback;
+            Platform.OnDestroyed += PlatformDestroyedCallback;
         }
 
         private void OnDestroy()
@@ -51,6 +53,9 @@ namespace Arcanoid.Services
 
             Ball.OnCreated -= BallCreatedCallback;
             Ball.OnDestroyed -= BallDestroyedCallback;
+            
+            Platform.OnCreated -= PlatformCreatedCallback;
+            Platform.OnDestroyed -= PlatformDestroyedCallback;
         }
 
         #endregion
@@ -107,18 +112,14 @@ namespace Arcanoid.Services
         private void BlockCreatedCallback(Block block)
         {
             _blocks.Add(block);
-            // Debug.Log("ADD BLOCK COUNT " + _blocks.Count); //todo
         }
 
         private void BlockDestroyedCallback(Block block)
         {
             _blocks.Remove(block);
             
-            // Debug.LogError("REMOVE BLOCK COUNT " + _blocks.Count); //todo
-            
             if (_blocks.Count == 0)
             {
-                // Debug.LogAssertion("FINAL BLOCK COUNT " + _blocks.Count);
                 OnAllBlocksDestroyed?.Invoke();
             }
         }
@@ -127,7 +128,17 @@ namespace Arcanoid.Services
         {
             _blocks.Clear();
         }
+        
+        private void PlatformCreatedCallback(Platform obj)
+        {
+            Platform = obj;
+        }
 
+        private void PlatformDestroyedCallback(Platform obj)
+        {
+            Platform = null;
+        }
+        
         #endregion
     }
 }

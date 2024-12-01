@@ -1,11 +1,24 @@
-﻿using Arcanoid.Services;
+﻿using System;
+using Arcanoid.Services;
 using UnityEngine;
 
 namespace Arcanoid.Game
 {
     public class Platform : MonoBehaviour
     {
+        #region Events
+
+        public static event Action<Platform> OnCreated;
+        public static event Action<Platform> OnDestroyed;
+
+        #endregion
+
         #region Unity lifecycle
+
+        private void Start()
+        {
+            OnCreated?.Invoke(this);
+        }
 
         private void Update()
         {
@@ -22,6 +35,11 @@ namespace Arcanoid.Game
             {
                 MoveWithMouse();
             }
+        }
+
+        private void OnDestroy()
+        {
+            OnDestroyed?.Invoke(this);
         }
 
         #endregion

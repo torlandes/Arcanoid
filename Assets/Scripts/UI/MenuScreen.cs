@@ -12,9 +12,12 @@ namespace Arcanoid.UI
 
         [SerializeField] private Button _buttonStart;
         [SerializeField] private Button _buttonLevels;
+        [SerializeField] private Button _buttonInfo;
+        [SerializeField] private Button _buttonBack;
         [SerializeField] private Button _buttonExit;
         [SerializeField] private GameObject _buttons;
         [SerializeField] private GameObject _scrollView;
+        [SerializeField] private GameObject _infoContent;
         
         // private int _selectedLevel = -1;
         
@@ -26,6 +29,8 @@ namespace Arcanoid.UI
         {
             _buttonStart.onClick.AddListener(StartButtonClickedCallback);
             _buttonLevels.onClick.AddListener(LevelsButtonClickedCallback);
+            _buttonInfo.onClick.AddListener(InfoButtonClickedCallback);
+            _buttonBack.onClick.AddListener(BackButtonClickedCallback);
             _buttonExit.onClick.AddListener(ExitButtonClickedCallback);
         }
         
@@ -42,8 +47,18 @@ namespace Arcanoid.UI
         {
             _buttons.SetActive(false);
             _scrollView.SetActive(true);
-        }        
+        }      
+        private void InfoButtonClickedCallback()
+        {
+            _buttons.SetActive(false);
+            _infoContent.SetActive(true);
+        }   
         
+        private void BackButtonClickedCallback()
+        {
+            _buttons.SetActive(true);
+            _infoContent.SetActive(false);
+        }   
         private void ExitButtonClickedCallback()
         {
             SceneLoaderService.Instance.ExitGame();

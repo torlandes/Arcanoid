@@ -57,11 +57,6 @@ namespace Arcanoid.Services
             LoadCurrentScene();
         }
 
-        public void LoadNextLevelDelayed()
-        {
-            StartCoroutine(LoadNextLevelDelayedInternal());
-        }
-
         #endregion
 
         #region Private methods
@@ -85,13 +80,7 @@ namespace Arcanoid.Services
         {
             SceneManager.LoadScene(_levelSceneNames[_currentSceneIndex]);
         }
-
-        private IEnumerator LoadNextLevelDelayedInternal()
-        {
-            yield return new WaitForSeconds(_newLevelDelay);
-            LoadNextLevel();
-        }
-
+        
         #endregion
     }
 }

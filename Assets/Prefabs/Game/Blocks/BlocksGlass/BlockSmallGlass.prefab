@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _score: 4
-  _spriteRenderer: {fileID: 0}
+  _spriteRenderer: {fileID: 9005509183782665222}
   _spriteLowCrackedBlock: {fileID: 21300000, guid: d03b3e2f94be4f141858ab8a6cfb38b8, type: 3}
   _spriteHardCrackedBlock: {fileID: 21300000, guid: 5d17a5806ca32244ea3c9002b36cc691, type: 3}
   _life: 3
